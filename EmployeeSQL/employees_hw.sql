@@ -77,19 +77,29 @@ REFERENCES "Employees" ("emp_no");
 
 SELECT * FROM "Employees";
 -- 1. 
-SELECT e.emp_no, e.last_name, e.first_name, e.sex, s.salary
+SELECT e.emp_no AS "Employee Number", 
+	e.last_name AS "Last Name", 
+	e.first_name AS "First Name", 
+	e.sex AS "Sex", 
+	s.salary AS "Salary"
 FROM "Employees" e
 INNER JOIN "Salaries" s
 ON s.emp_no = e.emp_no;
 
 --2. 
-SELECT e.first_name, e.last_name, e.hire_date 
+SELECT e.first_name AS "First Name", 
+	e.last_name AS "Last Name", 
+	e.hire_date AS "Hire Date"
 FROM "Employees" e
-WHERE hire_date >= '1-1-1986'
-AND hire_Date < '1-1-1987';
+WHERE e.hire_date >= '1/1/1986'
+AND e.hire_date < '1/1/1987';
 
 --3. 
-SELECT dm.dept_no, d.dept_name, dm.emp_no, e.last_name, e.first_name
+SELECT dm.dept_no AS "Department Number", 
+	d.dept_name AS "Department Name", 
+	dm.emp_no AS "Employee Number", 
+	e.last_name AS "Last Name", 
+	e.first_name AS "Full Name"
 FROM "Department_Managers" dm 
 INNER JOIN "Departments" d
 ON d.dept_no = dm.dept_no
@@ -97,7 +107,10 @@ INNER JOIN "Employees" e
 ON e.emp_no = dm.emp_no;
 
 --4. 
-SELECT e.emp_no, e.last_name, e.first_name, d.dept_name
+SELECT e.emp_no AS "Employee Number", 
+	e.last_name AS "Last Name", 
+	e.first_name AS "First Name", 
+	d.dept_name AS "Department Name"
 FROM "Employees" e
 INNER JOIN "Employee_Departments" ed
 ON ed.emp_no = e.emp_no
@@ -105,13 +118,18 @@ INNER JOIN "Departments" d
 ON d.dept_no = ed.dept_no;
 
 --5. 
-SELECT e.first_name, e.last_name, e.sex 
+SELECT e.first_name AS "First Name", 
+	e.last_name AS "Last Name", 
+	e.sex AS "Sex"
 FROM "Employees" e
 WHERE e.first_name = 'Hercules'
 AND e.last_name LIKE 'B%';
 
 --6. 
-SELECT e.emp_no, e.last_name, e.first_name, d.dept_name
+SELECT e.emp_no AS "Employee Number", 
+	e.last_name AS "Last Name", 
+	e.first_name AS "First Name", 
+	d.dept_name AS "Department Name"
 FROM "Employees" e
 INNER JOIN "Employee_Departments" ed
 ON ed.emp_no = e.emp_no
@@ -120,7 +138,10 @@ ON d.dept_no = ed.dept_no
 WHERE d.dept_name = 'Sales';
 
 --7. 
-SELECT e.emp_no, e.last_name, e.first_name, d.dept_name
+SELECT e.emp_no AS "Employee Number", 
+	e.last_name AS "Last Name", 
+	e.first_name AS "First Name", 
+	d.dept_name AS "Department Name"
 FROM "Employees" e
 INNER JOIN "Employee_Departments" ed
 ON ed.emp_no = e.emp_no
@@ -129,4 +150,7 @@ ON d.dept_no = ed.dept_no
 WHERE d.dept_name = 'Sales' OR d.dept_name ='Development';
 
 --8.
-
+SELECT e.last_name AS "Last Name", COUNT(e.last_name) AS "Last Name Count"
+FROM "Employees" e
+GROUP BY "Last Name"
+ORDER BY "Last Name Count" DESC; 

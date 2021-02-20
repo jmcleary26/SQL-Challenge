@@ -15,11 +15,11 @@ CREATE TABLE "Titles" (
 CREATE TABLE "Employees" (
     "emp_no" INT   NOT NULL,
     "emp_title_id" VARCHAR   NOT NULL,
-    "birth_date" VARCHAR(30)   NOT NULL,
+    "birth_date" DATE   NOT NULL,
     "first_name" VARCHAR(255)   NOT NULL,
     "last_name" VARCHAR(255)   NOT NULL,
     "sex" VARCHAR(30)   NOT NULL,
-    "hire_date" VARCHAR(30)   NOT NULL,
+    "hire_date" DATE   NOT NULL,
     CONSTRAINT "pk_Employees" PRIMARY KEY (
         "emp_no"
      )
@@ -75,7 +75,6 @@ REFERENCES "Employees" ("emp_no");
 ALTER TABLE "Salaries" ADD CONSTRAINT "fk_Salaries_emp_no" FOREIGN KEY("emp_no")
 REFERENCES "Employees" ("emp_no");
 
-SELECT * FROM "Employees";
 -- 1. 
 SELECT e.emp_no AS "Employee Number", 
 	e.last_name AS "Last Name", 
@@ -91,8 +90,18 @@ SELECT e.first_name AS "First Name",
 	e.last_name AS "Last Name", 
 	e.hire_date AS "Hire Date"
 FROM "Employees" e
-WHERE e.hire_date >= '1/1/1986'
-AND e.hire_date < '1/1/1987';
+WHERE e.hire_date BETWEEN '1986-01-01' AND '1986-12-31';
+--e.hire_date >='1/1/1986'
+--AND e.hire_date < '1/1/1987';
+
+--SELECT * FROM "Employees" e WHERE e.hire_date getdate()>'1/1/1986';
+
+--select *from "Employees" e 
+--where STR_TO_DATE(LEFT(e.hire_date,LOCATE('',e.hire_date)),'%m/%d/%Y') BETWEEN '1/1/1986' AND '1/1/1987';
+ALTER TABLE "Employees" 
+ALTER COLUMN hire_date DATETIME;
+
+select date_format(str_to_date(hire_date, '%d/%m/%Y'), '%Y-%m-%d') as Date from "Employees";
 
 --3. 
 SELECT dm.dept_no AS "Department Number", 

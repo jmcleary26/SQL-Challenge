@@ -1,1 +1,3 @@
 # SQL-Challenge
+
+For this SQL Challenge, we were tasked with analyzing some employee data from a corporation from the 1980s through the 1990s. After having creating a ERD of the tables that would house the employee data, we imported each CSV file containing employee titles, salaries, managers, and departments into the SQL table to begin running some queries. We collected employee demographics from certain years, salaries, managers, and departments. 
